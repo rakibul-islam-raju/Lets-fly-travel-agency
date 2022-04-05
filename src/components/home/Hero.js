@@ -23,7 +23,10 @@ export default function Hero() {
 								type="text"
 								placeholder="Search Location"
 							/>
-							<button type="submit" className="nav-btn">
+							<button
+								type="submit"
+								className="nav-btn bg-sky-500"
+							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									className="h-6 w-6"

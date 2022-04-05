@@ -1,4 +1,4 @@
-import About from "../components/home/About";
+import Destinations from "../components/home/Destinations";
 import Hero from "../components/home/Hero";
 import UpCommingEvents from "../components/home/UpCommingEvents";
 
@@ -7,7 +7,7 @@ export default function Home() {
 		<>
 			<Hero />
 			<UpCommingEvents />
-			<About />
+			<Destinations />
 		</>
 	);
 }

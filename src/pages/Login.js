@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
-import Message from "../components/Message";
+import Error from "../components/Error";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Login(props) {
@@ -11,13 +11,13 @@ export default function Login(props) {
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const { state = {} } = props.location;
-	const { prevLocation } = state;
+	// const { state = {} } = props.location;
+	// const { prevLocation } = state;
 
 	const { googleLogin, login } = useAuth();
 
 	const navigate = useNavigate();
-	const redirectUrl = prevLocation || "/";
+	// const redirectUrl = prevLocation || "/";
 
 	// google login
 	const handleGoogleSignin = async () => {
@@ -25,7 +25,7 @@ export default function Login(props) {
 			setError("");
 			setLoading(true);
 			await googleLogin();
-			navigate(redirectUrl);
+			navigate("/");
 		} catch (error) {
 			setError("Faild to login");
 		} finally {
@@ -40,7 +40,7 @@ export default function Login(props) {
 			setError("");
 			setLoading(true);
 			await login(email, password);
-			navigate(redirectUrl);
+			navigate("/");
 		} catch (error) {
 			setError("Uesr not found.");
 			console.log(error);
@@ -54,7 +54,7 @@ export default function Login(props) {
 			<h4 className="text-3xl font-semibold text-center">Login</h4>
 
 			<form onSubmit={handleLogin} className="mt-8 w-4/12 mx-auto">
-				{error && <Message color="red" text={error} />}
+				{error && <Error text={error} />}
 
 				<div className="mb-3">
 					<input
@@ -86,7 +86,7 @@ export default function Login(props) {
 						<button
 							disabled={loading}
 							type="submit"
-							className="nav-btn w-full"
+							className="nav-btn w-full bg-sky-500"
 						>
 							Login
 						</button>
@@ -94,7 +94,7 @@ export default function Login(props) {
 							disabled={loading}
 							onClick={handleGoogleSignin}
 							type="button"
-							className="nav-btn w-full mt-4"
+							className="nav-btn w-full mt-4 bg-sky-500"
 						>
 							Login with Google
 						</button>

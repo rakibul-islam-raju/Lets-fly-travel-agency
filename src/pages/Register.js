@@ -2,23 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
-import Message from "../components/Message";
+import Error from "../components/Error";
 import { useAuth } from "../contexts/AuthContext";
 
-export default function Register(props) {
+export default function Register() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const { state = {} } = props.location;
-	const { prevLocation } = state;
-
 	const { signup } = useAuth();
 
 	const navigate = useNavigate();
-	const redirectUrl = prevLocation || "/";
 
 	const handleRegister = async (e) => {
 		e.preventDefault();
@@ -48,7 +44,7 @@ export default function Register(props) {
 			setError("");
 			setLoading(true);
 			await signup(email, password, username);
-			navigate(redirectUrl);
+			navigate("/");
 		} catch (err) {
 			setError("Faild to create an account");
 			console.log(err);
@@ -63,7 +59,7 @@ export default function Register(props) {
 				Create New Account
 			</h4>
 			<form onSubmit={handleRegister} className="mt-8 w-4/12 mx-auto">
-				{error && <Message color="red" text={error} />}
+				{error && <Error text={error} />}
 
 				<div className="mb-3">
 					<input
@@ -105,7 +101,7 @@ export default function Register(props) {
 					<button
 						disabled={loading}
 						type="submit"
-						className="nav-btn w-full"
+						className="nav-btn w-full bg-sky-500"
 					>
 						Register
 					</button>
