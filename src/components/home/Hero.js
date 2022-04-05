@@ -5,8 +5,15 @@ export default function Hero() {
 		<section className="hero">
 			<div className="relative">
 				<img className="h-screen w-full" src={HeroImg} alt="lets fly" />
-				<div className="absolute bottom-5 w-full">
-					<div className="w-6/12 mx-auto bg-white px-8 py-5 rounded">
+				<div className="absolute top-32 w-full">
+					<h4 className="text-white text-center text-6xl">
+						Let's Make Your Best Trip Ever
+					</h4>
+					<p className="text-center text-xl text-white mt-8">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Voluptatibus, quasi!
+					</p>
+					<div className="w-6/12 mx-auto bg-white px-8 py-5 rounded mt-32">
 						<h4 className="text-xl mb-3">
 							Searh for your next location...
 						</h4>

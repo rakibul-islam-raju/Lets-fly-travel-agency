@@ -1,3 +1,13 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
-	return <div>Footer</div>;
+	return (
+		<footer className="bg-sky-400 text-white py-4">
+			<div className="wrapper flex flex-wrap justify-between">
+				<Link className="text-3xl font-bold" to="/">
+					let's Fly
+				</Link>
+			</div>
+		</footer>
+	);
 }

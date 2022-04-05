@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
+import Message from "../components/Message";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Register(props) {
@@ -61,12 +63,14 @@ export default function Register(props) {
 				Create New Account
 			</h4>
 			<form onSubmit={handleRegister} className="mt-8 w-4/12 mx-auto">
+				{error && <Message color="red" text={error} />}
+
 				<div className="mb-3">
 					<input
 						id="email"
 						name="email"
 						type="email"
-						className="w-full p-3 rounded border"
+						className="form-input"
 						placeholder="Email Address"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
@@ -77,7 +81,7 @@ export default function Register(props) {
 						id="password"
 						name="password"
 						type="password"
-						className="w-full p-3 rounded border"
+						className="form-input"
 						placeholder="Password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
@@ -88,19 +92,24 @@ export default function Register(props) {
 						id="cpassword"
 						name="cpassword"
 						type="password"
-						className="w-full p-3 rounded border"
+						className="form-input"
 						placeholder="Confirm Password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 					/>
 				</div>
-				<button
-					disabled={loading}
-					type="submit"
-					className="nav-btn w-full"
-				>
-					Register
-				</button>
+
+				{loading ? (
+					<Loading />
+				) : (
+					<button
+						disabled={loading}
+						type="submit"
+						className="nav-btn w-full"
+					>
+						Register
+					</button>
+				)}
 			</form>
 			<p className="mt-6 text-center">
 				Already have an account?{" "}

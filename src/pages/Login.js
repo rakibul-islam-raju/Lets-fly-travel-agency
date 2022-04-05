@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
+import Message from "../components/Message";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Login(props) {
@@ -50,13 +52,16 @@ export default function Login(props) {
 	return (
 		<section className="pt-24">
 			<h4 className="text-3xl font-semibold text-center">Login</h4>
+
 			<form onSubmit={handleLogin} className="mt-8 w-4/12 mx-auto">
+				{error && <Message color="red" text={error} />}
+
 				<div className="mb-3">
 					<input
 						id="username"
 						name="username"
 						type="email"
-						className="w-full p-3 rounded border"
+						className="form-input"
 						placeholder="Email Address"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
@@ -67,27 +72,34 @@ export default function Login(props) {
 						id="password"
 						name="password"
 						type="password"
-						className="w-full p-3 rounded border"
+						className="form-input"
 						placeholder="Password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</div>
-				<button
-					disabled={loading}
-					type="submit"
-					className="nav-btn w-full"
-				>
-					Login
-				</button>
-				<button
-					disabled={loading}
-					onClick={handleGoogleSignin}
-					type="button"
-					className="nav-btn w-full mt-4"
-				>
-					Login with Google
-				</button>
+
+				{loading ? (
+					<Loading />
+				) : (
+					<>
+						<button
+							disabled={loading}
+							type="submit"
+							className="nav-btn w-full"
+						>
+							Login
+						</button>
+						<button
+							disabled={loading}
+							onClick={handleGoogleSignin}
+							type="button"
+							className="nav-btn w-full mt-4"
+						>
+							Login with Google
+						</button>
+					</>
+				)}
 			</form>
 			<p className="mt-6 text-center">
 				Need an account?{" "}
