@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
@@ -17,7 +17,7 @@ export default function Register(props) {
 
 	const { signup } = useAuth();
 
-	const history = useHistory();
+	const navigate = useNavigate();
 	const redirectUrl = prevLocation || "/";
 
 	const handleRegister = async (e) => {
@@ -48,7 +48,7 @@ export default function Register(props) {
 			setError("");
 			setLoading(true);
 			await signup(email, password, username);
-			history.push(redirectUrl);
+			navigate(redirectUrl);
 		} catch (err) {
 			setError("Faild to create an account");
 			console.log(err);
@@ -113,7 +113,7 @@ export default function Register(props) {
 			</form>
 			<p className="mt-6 text-center">
 				Already have an account?{" "}
-				<Link to="/login" className="text-sky-400">
+				<Link to="/login" className="text-sky-500">
 					Login here.
 				</Link>
 			</p>

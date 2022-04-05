@@ -1,6 +1,6 @@
 export default function About() {
 	return (
-		<section className="mt-16">
+		<section className="wrapper mt-16">
 			<h4 className="section-title">Our Benefit</h4>
 			<p className="text-center">
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum

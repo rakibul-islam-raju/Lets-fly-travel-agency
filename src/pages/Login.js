@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
@@ -16,7 +16,7 @@ export default function Login(props) {
 
 	const { googleLogin, login } = useAuth();
 
-	const history = useHistory();
+	const navigate = useNavigate();
 	const redirectUrl = prevLocation || "/";
 
 	// google login
@@ -25,7 +25,7 @@ export default function Login(props) {
 			setError("");
 			setLoading(true);
 			await googleLogin();
-			history.push(redirectUrl);
+			navigate(redirectUrl);
 		} catch (error) {
 			setError("Faild to login");
 		} finally {
@@ -40,7 +40,7 @@ export default function Login(props) {
 			setError("");
 			setLoading(true);
 			await login(email, password);
-			history.push(redirectUrl);
+			navigate(redirectUrl);
 		} catch (error) {
 			setError("Uesr not found.");
 			console.log(error);
@@ -103,7 +103,7 @@ export default function Login(props) {
 			</form>
 			<p className="mt-6 text-center">
 				Need an account?{" "}
-				<Link to="/register" className="text-sky-400">
+				<Link to="/register" className="text-sky-500">
 					Register Now.
 				</Link>
 			</p>

@@ -19,7 +19,7 @@ export default function Hero() {
 						</h4>
 						<form className="flex items-center">
 							<input
-								className="p-3 border-b border-sky-400 w-full focus:outline-none focus:border-gray-700 trnasition"
+								className="p-3 border-b border-sky-500 w-full focus:outline-none focus:border-gray-700 trnasition"
 								type="text"
 								placeholder="Search Location"
 							/>

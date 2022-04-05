@@ -3,7 +3,7 @@ import { faClock, faChair } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpCommingEvents() {
 	return (
-		<section className="pt-16">
+		<section className="wrapper pt-16">
 			<h4 className="section-title">Upcomming Events</h4>
 			<div className="flex flex-wrap justify-between">
 				<div className="w-full md:w-6/12 lg:w-4/12 px-6 py-4 mx-auto">
