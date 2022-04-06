@@ -12,7 +12,6 @@ const postSubscribe = async (req, res, next) => {
 			event,
 			status,
 		});
-
 		return res.status(201).json(subscribe);
 	} catch (e) {
 		next(e);

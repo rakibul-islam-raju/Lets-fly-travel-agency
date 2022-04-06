@@ -1,7 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import OrderListTable from "../../components/tables/OrderListTable";
+import UserListTable from "../../components/tables/UserListTable";
 
 export default function Users() {
 	return (
@@ -18,7 +18,7 @@ export default function Users() {
 						<FontAwesomeIcon icon={faPlus} />
 					</Link>
 				</div>
-				<OrderListTable />
+				<UserListTable />
 			</div>
 		</>
 	);

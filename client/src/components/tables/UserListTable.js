@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import Loading from "../Loading";
 import axios from "axios";
 
-export default function OrderListTable() {
-	const [subscriptions, setSubscriptions] = useState([]);
+export default function UserListTable() {
+	const [users, setUsers] = useState([]);
 	const [error, setError] = useState({});
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_BASE_URL}/subscribes`)
-			.then((res) => setSubscriptions(res.data))
+			.get(`${process.env.REACT_APP_BASE_URL}/users`)
+			.then((res) => setUsers(res.data))
 			.catch((e) => setError(e))
 			.finally(() => setLoading(false));
 	}, []);
@@ -29,13 +29,7 @@ export default function OrderListTable() {
 										scope="col"
 										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 									>
-										Event
-									</th>
-									<th
-										scope="col"
-										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-									>
-										User
+										Name
 									</th>
 									<th
 										scope="col"
@@ -56,41 +50,32 @@ export default function OrderListTable() {
 							</thead>
 
 							<tbody class="bg-white divide-y divide-gray-200">
-								{subscriptions.map((subscribe) => (
-									<tr key={subscribe?._id}>
+								{users.map((user) => (
+									<tr key={user?._id}>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="text-sm font-medium text-gray-900">
-													{subscribe.event?.title}
+													{user?.displayName}
 												</div>
 											</div>
 										</td>
+
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="text-sm font-medium text-gray-900">
-													{
-														subscribe?.user
-															?.displayName
-													}
-												</div>
-											</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="flex items-center">
-												<div class="text-sm font-medium text-gray-900">
-													{subscribe?.user?.email}
+													{user?.email}
 												</div>
 											</div>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<span
 												class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-													subscribe.status
+													user?.status
 														? "bg-green-100 text-green-800"
 														: "bg-yellow-100 text-yellow-800"
 												}`}
 											>
-												{subscribe.status
+												{user?.status
 													? "Approved"
 													: "Pending"}
 											</span>

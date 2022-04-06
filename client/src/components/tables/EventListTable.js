@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import Loading from "../Loading";
 import axios from "axios";
 
-export default function OrderListTable() {
-	const [subscriptions, setSubscriptions] = useState([]);
+export default function EventListTable() {
+	const [events, setEvents] = useState([]);
 	const [error, setError] = useState({});
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_BASE_URL}/subscribes`)
-			.then((res) => setSubscriptions(res.data))
+			.get(`${process.env.REACT_APP_BASE_URL}/events`)
+			.then((res) => setEvents(res.data))
 			.catch((e) => setError(e))
 			.finally(() => setLoading(false));
 	}, []);
@@ -28,20 +28,24 @@ export default function OrderListTable() {
 									<th
 										scope="col"
 										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+									></th>
+									<th
+										scope="col"
+										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 									>
-										Event
+										Title
 									</th>
 									<th
 										scope="col"
 										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 									>
-										User
+										Date
 									</th>
 									<th
 										scope="col"
 										class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 									>
-										Email
+										Seat
 									</th>
 									<th
 										scope="col"
@@ -56,41 +60,51 @@ export default function OrderListTable() {
 							</thead>
 
 							<tbody class="bg-white divide-y divide-gray-200">
-								{subscriptions.map((subscribe) => (
-									<tr key={subscribe?._id}>
+								{events.map((event) => (
+									<tr key={event?._id}>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="text-sm font-medium text-gray-900">
-													{subscribe.event?.title}
+													<img
+														className="w-16 rounded"
+														src={event?.image}
+														alt={event?.title}
+													/>
 												</div>
 											</div>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="text-sm font-medium text-gray-900">
-													{
-														subscribe?.user
-															?.displayName
-													}
+													{event?.title}
 												</div>
 											</div>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="text-sm font-medium text-gray-900">
-													{subscribe?.user?.email}
+													{new Date(
+														event?.date
+													).toLocaleDateString()}
+												</div>
+											</div>
+										</td>
+										<td class="px-6 py-4 whitespace-nowrap">
+											<div class="flex items-center">
+												<div class="text-sm font-medium text-gray-900">
+													{event?.seat}
 												</div>
 											</div>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<span
 												class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-													subscribe.status
+													event?.status
 														? "bg-green-100 text-green-800"
 														: "bg-yellow-100 text-yellow-800"
 												}`}
 											>
-												{subscribe.status
+												{event?.status
 													? "Approved"
 													: "Pending"}
 											</span>
