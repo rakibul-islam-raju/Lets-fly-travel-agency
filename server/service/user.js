@@ -11,7 +11,18 @@ const findUserByProperty = (key, value) => {
 	return User.findOne({ [key]: value });
 };
 
+const createUser = ({ displayName, email, status }) => {
+	const user = new User({
+		displayName,
+		email,
+		status,
+	});
+
+	return user.save();
+};
+
 module.exports = {
 	findUserByProperty,
 	findUsers,
+	createUser,
 };

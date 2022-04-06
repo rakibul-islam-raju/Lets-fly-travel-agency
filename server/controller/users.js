@@ -1,6 +1,22 @@
 const userService = require("../service/user");
 const error = require("../utils/error");
 
+const postUser = async (req, res, next) => {
+	const { displayName, email, status } = req.body;
+
+	try {
+		const user = await userService.createUser({
+			displayName,
+			email,
+			status,
+		});
+
+		return res.status(201).json(user);
+	} catch (e) {
+		next(e);
+	}
+};
+
 const getUsers = async (req, res, next) => {
 	try {
 		const data = await userService.findUsers();
@@ -62,6 +78,7 @@ const deleteUserById = async (req, res, next) => {
 };
 
 module.exports = {
+	postUser,
 	getUsers,
 	getUserByID,
 	patchUserById,

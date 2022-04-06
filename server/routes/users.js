@@ -23,10 +23,17 @@ router.patch("/:userId", userController.patchUserById);
 router.delete("/:userId", userController.deleteUserById);
 
 /**
- * Get all users, include
+ * Get all users
  * @method GET
  * @visibility Private
  */
 router.get("/", userController.getUsers);
+
+/**
+ * Post user
+ * @method POST
+ * @visibility Private
+ */
+router.post("/", userController.postUser);
 
 module.exports = router;
