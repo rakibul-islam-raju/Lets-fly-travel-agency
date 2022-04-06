@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
 		await signInWithPopup(auth, googleProvider);
 
 		const user = auth.currentUser;
+		console.log("user =>", user);
 		setCurrentUser({ ...user });
 	}
 
