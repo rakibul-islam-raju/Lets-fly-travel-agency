@@ -6,14 +6,52 @@ export default function OrderListTable() {
 	const [subscriptions, setSubscriptions] = useState([]);
 	const [error, setError] = useState({});
 	const [loading, setLoading] = useState(true);
+	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_BASE_URL}/subscribes`)
 			.then((res) => setSubscriptions(res.data))
 			.catch((e) => setError(e))
+			.finally(() => {
+				setLoading(false);
+				setReload(false);
+			});
+	}, [reload]);
+
+	const handleDelete = (id) => {
+		const confirm = window.confirm("Are you sure to delete this item?");
+		if (!confirm) return false;
+
+		setLoading(true);
+		setError("");
+		axios
+			.delete(`${process.env.REACT_APP_BASE_URL}/subscribes/${id}`)
+			.then((res) => {
+				setReload(true);
+			})
+			.catch((err) => setError(err.response.data.message))
 			.finally(() => setLoading(false));
-	}, []);
+	};
+
+	const handleUpdateStatus = (subscribe) => {
+		setLoading(true);
+		setError("");
+		axios
+			.patch(
+				`${process.env.REACT_APP_BASE_URL}/subscribes/${subscribe._id}`,
+				{
+					status: !subscribe.status,
+				}
+			)
+			.then((res) => {
+				if (res.data._id) {
+					setReload(true);
+				}
+			})
+			.catch((err) => setError(err.response.data.message))
+			.finally(() => setLoading(false));
+	};
 
 	return (
 		<div className="flex flex-col mt-8">
@@ -83,7 +121,13 @@ export default function OrderListTable() {
 											</div>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
-											<span
+											<button
+												onClick={() =>
+													handleUpdateStatus(
+														subscribe
+													)
+												}
+												type="button"
 												class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
 													subscribe.status
 														? "bg-green-100 text-green-800"
@@ -93,10 +137,13 @@ export default function OrderListTable() {
 												{subscribe.status
 													? "Approved"
 													: "Pending"}
-											</span>
+											</button>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 											<button
+												onClick={() =>
+													handleDelete(subscribe?._id)
+												}
 												type="button"
 												class="text-red-600 bg-red-100 rounded-xl px-2 font-semibold"
 											>

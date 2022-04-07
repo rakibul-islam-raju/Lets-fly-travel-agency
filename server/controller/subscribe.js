@@ -49,7 +49,7 @@ const patchSubscribeById = async (req, res, next) => {
 	const { status } = req.body;
 
 	try {
-		const subs = await subscribeService.findUserByProperty(
+		const subs = await subscribeService.findSubscribeByProperty(
 			"_id",
 			subscribeId
 		);
@@ -58,7 +58,7 @@ const patchSubscribeById = async (req, res, next) => {
 			throw error("User not found", 404);
 		}
 
-		subs.name = status ?? subs.status;
+		subs.status = status ?? subs.status;
 
 		await subs.save();
 		return res.status(200).json(subs);
@@ -71,7 +71,7 @@ const deleteSubscribeById = async (req, res, next) => {
 	const { subscribeId } = req.params;
 
 	try {
-		const user = await subscribeService.findUserByProperty(
+		const user = await subscribeService.findSubscribeByProperty(
 			"_id",
 			subscribeId
 		);
