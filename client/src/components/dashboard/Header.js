@@ -4,7 +4,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 const menus = [
 	{ pathName: "Orders", url: "/dashboard/orders" },
-	{ pathName: "Events", url: "/dashboard/Events" },
+	{ pathName: "Events", url: "/dashboard/events" },
 	{ pathName: "Users", url: "/dashboard/users" },
 ];
 
@@ -30,7 +30,7 @@ export default function Header() {
 						</Link>
 						<ul className="flex flex-wrap md:space-x-4 items-start font-semibold">
 							{menus.map((menu) => (
-								<li className="nav-link">
+								<li kay={menu.url} className="nav-link">
 									<NavLink
 										to={menu.url}
 										className={({ isActive }) =>

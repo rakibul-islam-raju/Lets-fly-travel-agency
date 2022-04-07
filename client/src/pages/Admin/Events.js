@@ -10,7 +10,7 @@ export default function Events() {
 				<div className="flex justify-between items-center">
 					<div className="text-2xl font-semibold">Event List</div>
 					<Link
-						to=""
+						to="/dashboard/events/new"
 						type="button"
 						className="rounded-full px-3 py-2 bg-sky-500 text-white hover:bg-sky-600 transition"
 					>

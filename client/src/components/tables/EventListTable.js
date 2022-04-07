@@ -1,23 +1,45 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Loading from "../Loading";
+import Error from "../Error";
 import axios from "axios";
 
 export default function EventListTable() {
 	const [events, setEvents] = useState([]);
-	const [error, setError] = useState({});
+	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_BASE_URL}/events`)
 			.then((res) => setEvents(res.data))
 			.catch((e) => setError(e))
+			.finally(() => {
+				setLoading(false);
+				setReload(false);
+			});
+	}, [reload]);
+
+	const handleDelete = (id) => {
+		const confirm = window.confirm("Are you sure to delete this item?");
+		if (!confirm) return false;
+
+		setLoading(true);
+		setError("");
+		axios
+			.delete(`${process.env.REACT_APP_BASE_URL}/events/${id}`)
+			.then((res) => {
+				setReload(true);
+			})
+			.catch((err) => setError(err.response.data.message))
 			.finally(() => setLoading(false));
-	}, []);
+	};
 
 	return (
 		<div className="flex flex-col mt-8">
 			{loading && <Loading />}
+			{error && <Error text={error} />}
 
 			<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 				<div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -110,7 +132,16 @@ export default function EventListTable() {
 											</span>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+											<Link
+												to={`/dashboard/events/${event?._id}`}
+												class="text-blue-600 bg-blue-100 rounded-xl px-2 font-semibold"
+											>
+												Edit
+											</Link>
 											<button
+												onClick={() =>
+													handleDelete(event?._id)
+												}
 												type="button"
 												class="text-red-600 bg-red-100 rounded-xl px-2 font-semibold"
 											>
