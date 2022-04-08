@@ -2,9 +2,13 @@ const { model, Schema } = require("mongoose");
 
 const subscribeSchema = new Schema(
 	{
-		user: {
-			type: Schema.Types.ObjectId,
-			ref: "User",
+		name: {
+			type: String,
+			require: true,
+		},
+		email: {
+			type: String,
+			require: true,
 		},
 		event: {
 			type: Schema.Types.ObjectId,

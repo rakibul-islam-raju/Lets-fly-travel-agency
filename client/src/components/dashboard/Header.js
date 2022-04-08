@@ -5,7 +5,7 @@ import { useAuth } from "../../contexts/AuthContext";
 const menus = [
 	{ pathName: "Orders", url: "/dashboard/orders" },
 	{ pathName: "Events", url: "/dashboard/events" },
-	{ pathName: "Users", url: "/dashboard/users" },
+	// { pathName: "Users", url: "/dashboard/users" },
 ];
 
 export default function Header() {

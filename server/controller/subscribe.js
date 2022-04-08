@@ -4,11 +4,14 @@ const eventService = require("../service/event");
 const error = require("../utils/error");
 
 const postSubscribe = async (req, res, next) => {
-	const { user, event, status } = req.body;
+	const { name, email, event, status } = req.body;
+
+	console.log("BODY =>", req.body);
 
 	try {
 		const subscribe = await subscribeService.createSubscribe({
-			user,
+			name,
+			email,
 			event,
 			status,
 		});

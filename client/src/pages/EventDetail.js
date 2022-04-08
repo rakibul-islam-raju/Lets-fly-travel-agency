@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import Loading from "../components/Loading";
@@ -11,6 +11,7 @@ export default function EventDetail() {
 	const [error, setError] = useState("");
 
 	const { eventId } = useParams();
+	const navigate = useNavigate();
 
 	const { currentUser } = useAuth();
 
@@ -24,9 +25,14 @@ export default function EventDetail() {
 
 	const handleSubscribe = () => {
 		axios
-			.post(`${process.env.REACT_APP_BASE_URL}/subscribe`)
+			.post(`${process.env.REACT_APP_BASE_URL}/subscribes`, {
+				name: currentUser?.displayName,
+				email: currentUser?.email,
+				event: event?._id,
+			})
 			.then((res) => {
 				window.alert("Congrats! Succesfully subscribed.");
+				navigate("/");
 			})
 			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
@@ -41,7 +47,7 @@ export default function EventDetail() {
 			/>
 
 			{loading && <Loading />}
-			{error && <Error />}
+			{error && <Error text={error} />}
 
 			<h4 className="text-4xl font-semibold my-6">{event?.title}</h4>
 			<div className="flex justify-between">
@@ -90,6 +96,7 @@ export default function EventDetail() {
 							className="nav-btn bg-sky-500 w-full"
 							type="button"
 							onClick={handleSubscribe}
+							disabled={loading}
 						>
 							Subscribe
 						</button>

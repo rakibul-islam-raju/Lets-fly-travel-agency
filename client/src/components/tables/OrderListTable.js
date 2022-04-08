@@ -106,17 +106,14 @@ export default function OrderListTable() {
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="text-sm font-medium text-gray-900">
-													{
-														subscribe?.user
-															?.displayName
-													}
+													{subscribe?.name}
 												</div>
 											</div>
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="text-sm font-medium text-gray-900">
-													{subscribe?.user?.email}
+													{subscribe?.email}
 												</div>
 											</div>
 										</td>
