@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faChair } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function UpCommingEvents() {
 	const [events, setEvents] = useState([]);
@@ -15,10 +16,15 @@ export default function UpCommingEvents() {
 	return (
 		<section className="wrapper pt-16">
 			<h4 className="section-title">Upcomming Events</h4>
-			<div className="flex flex-wrap justify-between">
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 				{events.map((event) => (
-					<div className="w-full md:w-6/12 lg:w-4/12 px-6 py-4 mx-auto">
-						<div className="bg-sky-500 text-white p-4 rounded shadow-xl">
+					<div kay={event?._id} className="group">
+						<img
+							className="rounded relative z-0 w-full h-56"
+							src={event?.image}
+							alt={event?.title}
+						/>
+						<div className="bg-sky-500 text-white p-4 rounded mx-6 shadow-xl relative z-10 -mt-44 bg-opacity-75 group-hover:bg-opacity-100 transition">
 							<h4 className="text-xl font-semibold text-center mb-3">
 								{event?.title}
 							</h4>
@@ -34,12 +40,12 @@ export default function UpCommingEvents() {
 							</p>
 							<p className=" mt-2">{event?.description}</p>
 							<div className="flex justify-center mt-3">
-								<button
-									type="button"
+								<Link
+									to={`/event/${event?._id}`}
 									className="border-b border-white font-semibold"
 								>
 									Book Now
-								</button>
+								</Link>
 							</div>
 						</div>
 					</div>
