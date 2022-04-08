@@ -20,11 +20,13 @@ app.use((err, req, res, next) => {
 	});
 });
 
+const port = process.env.PORT || 8000;
+
 connectDB(`${MONGODB_URL}`)
 	.then(() => {
 		console.log("Database Connected");
-		app.listen(8000, () => {
-			console.log("I am listening on port 8000");
+		app.listen(port, () => {
+			console.log(`I am listening on port ${port}`);
 		});
 	})
 	.catch((e) => console.log(e));
